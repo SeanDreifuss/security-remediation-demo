@@ -2,11 +2,12 @@
 Runs one GitHub issue through the full remediation flow:
   GitHub issue → Triage session → (if auto-remediate) Fix session → PR
 
-Usage:
+Usage as CLI:
   python3 scripts/run_remediation.py <issue_number>
 
-Example:
-  python3 scripts/run_remediation.py 2
+Usage as library (from webhook server):
+  from run_remediation import remediate_issue
+  result = remediate_issue(4)
 """
 import json
 import os
@@ -122,24 +123,15 @@ def poll_session(session_id: str) -> dict:
 
         print(f"  [{elapsed:4d}s] status={status} detail={detail} acus={acus:.3f}")
 
-        # Terminal: done
         if status == "exit":
             return session
-
-        # Terminal: failed
         if status == "error":
             return session
-
-        # Task complete but session still "running" — grab structured output, then break
         if status == "running" and detail == "finished":
             return session
-
-        # Stuck waiting for user input — abort
         if status == "running" and detail == "waiting_for_user":
             print("  Session is waiting for user input. Aborting.")
             return session
-
-        # Suspended for any non-resolvable reason
         if status == "suspended":
             print(f"  Session suspended ({detail}). Returning.")
             return session
@@ -181,14 +173,27 @@ Triage session's structured output:
 Apply the fix per the Security Fix Application playbook. Reference the originating issue with `Fixes #{issue['number']}` in the PR body. Return structured output when complete."""
 
 
-# ---------- Main flow ----------
+# ---------- Core pipeline function (reusable from CLI or webhook) ----------
 
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: python3 scripts/run_remediation.py <issue_number>")
-        sys.exit(1)
+def remediate_issue(issue_number: int) -> dict:
+    """
+    Run the full remediation pipeline for a single GitHub issue.
+    Returns a summary dict describing what happened.
 
-    issue_number = int(sys.argv[1])
+    This is the reusable entrypoint. It can be called from:
+      - the CLI (via main() below)
+      - the webhook server (orchestrator/webhook_server.py)
+      - any future trigger (scheduler, test harness, etc.)
+    """
+    result = {
+        "issue_number": issue_number,
+        "triage_session_id": None,
+        "triage_outcome": None,
+        "triage_reasoning": None,
+        "fix_session_id": None,
+        "pr_url": None,
+        "status": "started",
+    }
 
     print(f"[1] Fetching issue #{issue_number} from {TARGET_REPO}...")
     issue = fetch_issue(issue_number)
@@ -201,31 +206,36 @@ def main():
         schema=TRIAGE_SCHEMA,
         tags=[f"issue-{issue_number}", "triage"],
     )
+    result["triage_session_id"] = triage_session_id
     print(f"    Session: {triage_session_id}")
     print(f"    URL: https://app.devin.ai/sessions/{triage_session_id}")
 
     print(f"\n[3] Polling triage session until terminal...")
     triage_session = poll_session(triage_session_id)
-
     triage_output = triage_session.get("structured_output")
+
     print(f"\n[4] Triage complete.")
     print(f"    Structured output:")
     print(json.dumps(triage_output, indent=6))
 
     if not triage_output:
-        print("    No structured output returned. Cannot continue.")
-        sys.exit(1)
+        result["status"] = "triage_failed_no_output"
+        return result
 
     outcome = triage_output.get("outcome")
+    result["triage_outcome"] = outcome
+    result["triage_reasoning"] = triage_output.get("reasoning")
 
     if outcome == "escalated":
         print(f"\n[5] Triage escalated this finding. Stopping here.")
         print(f"    Reason: {triage_output.get('escalation_reason')}")
-        return
+        result["status"] = "escalated"
+        return result
 
     if outcome != "auto_remediate_requested":
         print(f"\n[5] Triage returned unexpected outcome: {outcome}. Stopping.")
-        return
+        result["status"] = f"triage_unexpected:{outcome}"
+        return result
 
     print(f"\n[5] Triage requested auto-remediation. Creating fix session...")
     fix_session_id = create_session(
@@ -234,21 +244,41 @@ def main():
         schema=FIX_SCHEMA,
         tags=[f"issue-{issue_number}", "fix"],
     )
+    result["fix_session_id"] = fix_session_id
     print(f"    Session: {fix_session_id}")
     print(f"    URL: https://app.devin.ai/sessions/{fix_session_id}")
 
     print(f"\n[6] Polling fix session until terminal...")
     fix_session = poll_session(fix_session_id)
-
     fix_output = fix_session.get("structured_output")
+
     print(f"\n[7] Fix session complete.")
     print(f"    Structured output:")
     print(json.dumps(fix_output, indent=6))
 
     if fix_output and fix_output.get("pr_url"):
+        result["pr_url"] = fix_output["pr_url"]
+        result["status"] = "pr_opened"
         print(f"\n✅ PR opened: {fix_output['pr_url']}")
     else:
+        result["status"] = "fix_completed_no_pr"
         print(f"\n⚠️  No PR URL returned.")
+
+    return result
+
+
+# ---------- CLI entrypoint ----------
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python3 scripts/run_remediation.py <issue_number>")
+        sys.exit(1)
+
+    issue_number = int(sys.argv[1])
+    result = remediate_issue(issue_number)
+
+    print("\n=== Summary ===")
+    print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":

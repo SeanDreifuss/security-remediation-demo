@@ -57,3 +57,20 @@ Tested on issue #3
 - Key insight: this is the system working well 
 - Demo ideas: start with this case to establish "taste" before showing successful fix / more complex case
 
+
+## Demo artifacts
+
+| Issue | CVE | Outcome | Artifact |
+|---|---|---|---|
+| #2 | CVE-2023-27524 | PR opened | https://github.com/SeanDreifuss/superset/pull/10 |
+| #3 | CVE-2023-39264 | PR opened (test-only) | [new PR URL] |
+| #8 | CVE-2023-37941 | Escalated | Session: [URL] |
+
+## Observed behavior: judgment variability
+
+On issue #3, across multiple runs Devin has produced different defensible outcomes:
+- Run 1: escalated ("already fixed, recommend closing")
+- Run 2: auto-remediated (added missing regression tests to lock in the secure default)
+
+Both are consistent with the Playbook's triage criteria. The variability reflects real latitude in how a senior engineer might interpret "already mitigated." For the demo, the PR-producing run is shown. For a production deployment, this could be tightened by adding an explicit "already-mitigated → always escalate" rule.
+
