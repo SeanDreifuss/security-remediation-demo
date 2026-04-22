@@ -49,3 +49,11 @@ Day 1: seed issues + write Playbooks + create them via API
 Day 2: orchestrator end-to-end on one finding, measure ACU
 Day 3: analytics + escalation cases + Docker + README
 Day 4: Record Loom + submit
+
+## Test run analytics notes
+Tested on issue #3
+- Outcome: escalated (correctly)
+- Reason: Devin checked the code, confirmed vulnerability is already mitigated
+- Key insight: this is the system working well 
+- Demo ideas: start with this case to establish "taste" before showing successful fix / more complex case
+
