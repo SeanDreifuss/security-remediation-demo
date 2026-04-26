@@ -41,7 +41,7 @@ The system uses two Devin playbooks:
 1. **Security Finding Triage** (`!security-triage`) - Analyzes security findings and decides whether to auto-remediate or escalate
 2. **Security Fix Application** (`!security-fix`) - Applies scoped security fixes and opens pull requests
 
-See <ref_file file="/Users/seanjdreifuss/dev/devin-vuln-remediation/playbooks.md" /> for detailed playbook specifications.
+See [playbooks.md](playbooks.md) for detailed playbook specifications.
 
 ## Setup
 
@@ -109,7 +109,7 @@ TRIAGE_PLAYBOOK_ID=pb_abc123
 FIX_PLAYBOOK_ID=pb_def456
 ```
 
-### 5. Configure GitHub Webhook (Optional, for webhook mode)
+### 5. Configure GitHub Webhook
 
 To enable automatic remediation via GitHub webhooks:
 
