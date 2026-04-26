@@ -76,11 +76,11 @@ Both are consistent with the Playbook's triage criteria. The variability reflect
 
 ## Webhook Notes
 The flow:
-GitHub webhook receiver for security findings.
+1. GitHub webhook receiver for security findings.
 
-When an engineer files an issue on SeanDreifuss/superset with the
-'security-finding' label, GitHub sends a POST to /webhook.
-This server receives it and spawns a Devin remediation pipeline.
+   - When an engineer files an issue on SeanDreifuss/superset with the
+   'security-finding' label, GitHub sends a POST to /webhook.
+   - This server receives it and spawns a Devin remediation pipeline.
 
 Usage:
   python3 orchestrator/webhook_server.

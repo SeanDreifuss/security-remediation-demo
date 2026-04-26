@@ -117,3 +117,24 @@
 2026-04-26 18:21:47,901 [INFO] 127.0.0.1 - - [26/Apr/2026 18:21:47] "POST /webhook HTTP/1.1" 200 -
 2026-04-26 18:32:00,989 [INFO] Received GitHub event: push
 2026-04-26 18:32:00,993 [INFO] 127.0.0.1 - - [26/Apr/2026 18:32:00] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 18:35:18,500 [INFO] [issue-16] ✅ PR opened: https://github.com/SeanDreifuss/superset/pull/17
+2026-04-26 18:35:18,504 [INFO] [issue-16] Full result: {
+  "issue_number": 16,
+  "triage_session_id": "93ea609fdb82453d9f7bf2b696d1be68",
+  "triage_outcome": "auto_remediate_requested",
+  "triage_reasoning": "The scanner describes an open redirect in the authentication flow's `next` parameter, citing CVE-2023-42502. However, the actual CVE-2023-42502 (per NVD) is about Host header spoofing in dataset links, fixed in Superset 3.0.0 \u2014 the scanner conflated the CVE with a generic open redirect concern. Despite this mismatch, a defense-in-depth gap does exist: the `redirect_to_login()` function in `superset/views/utils.py` accepts a `next_target` parameter without validating it is a same-origin/relative URL. While Flask-AppBuilder 5.2.1's login POST handlers (AuthDBView, AuthOAuthView, AuthRemoteUserView) already validate the `next` parameter server-side via `get_safe_redirect()` and `is_safe_redirect_url()`, the `redirect_to_login` function itself does not perform this check. All current callers pass `None` (deriving the target from the request path), but adding explicit validation is a bounded, mechanical defense-in-depth fix. The fix requires changes to 1-2 files: add URL validation in `redirect_to_login()` and add unit tests for external redirect rejection. No architectural changes, no data migration, no behavior change for legitimate relative-path redirects.",
+  "fix_session_id": "143d27c3ac5d481ba9dc96a775d1a0dd",
+  "pr_url": "https://github.com/SeanDreifuss/superset/pull/17",
+  "status": "pr_opened"
+}
+2026-04-26 18:35:18,504 [INFO] [issue-16] Pipeline complete. Slot released.
+2026-04-26 23:22:44,584 [INFO] Starting webhook server on port 5000
+2026-04-26 23:22:44,585 [INFO] Listening for GitHub events on POST /webhook
+2026-04-26 23:22:44,585 [INFO] Health check available at GET /health
+2026-04-26 23:22:44,588 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2026-04-26 23:22:44,588 [INFO] [33mPress CTRL+C to quit[0m
+2026-04-26 23:24:00,455 [INFO] 192.168.65.1 - - [26/Apr/2026 23:24:00] "GET /health HTTP/1.1" 200 -
+2026-04-26 19:22:59,173 [INFO] 127.0.0.1 - - [26/Apr/2026 19:22:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
