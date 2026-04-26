@@ -74,3 +74,13 @@ On issue #3, across multiple runs Devin has produced different defensible outcom
 
 Both are consistent with the Playbook's triage criteria. The variability reflects real latitude in how a senior engineer might interpret "already mitigated." For the demo, the PR-producing run is shown. For a production deployment, this could be tightened by adding an explicit "already-mitigated → always escalate" rule.
 
+## Webhook Notes
+The flow:
+GitHub webhook receiver for security findings.
+
+When an engineer files an issue on SeanDreifuss/superset with the
+'security-finding' label, GitHub sends a POST to /webhook.
+This server receives it and spawns a Devin remediation pipeline.
+
+Usage:
+  python3 orchestrator/webhook_server.

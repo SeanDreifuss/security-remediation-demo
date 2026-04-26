@@ -1,0 +1,119 @@
+2026-04-26 11:18:11,406 [INFO] Starting webhook server on port 5000
+2026-04-26 11:18:11,407 [INFO] Listening for GitHub events on POST /webhook
+2026-04-26 11:18:11,407 [INFO] Health check available at GET /health
+2026-04-26 11:18:18,764 [INFO] Starting webhook server on port 5000
+2026-04-26 11:18:18,764 [INFO] Listening for GitHub events on POST /webhook
+2026-04-26 11:18:18,764 [INFO] Health check available at GET /health
+2026-04-26 11:19:16,987 [INFO] Starting webhook server on port 5000
+2026-04-26 11:19:16,987 [INFO] Listening for GitHub events on POST /webhook
+2026-04-26 11:19:16,987 [INFO] Health check available at GET /health
+2026-04-26 11:19:17,017 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.31:5000
+2026-04-26 11:19:17,017 [INFO] [33mPress CTRL+C to quit[0m
+2026-04-26 11:19:56,079 [INFO] 127.0.0.1 - - [26/Apr/2026 11:19:56] "GET /health HTTP/1.1" 200 -
+2026-04-26 11:29:35,851 [INFO] Received GitHub event: ping
+2026-04-26 11:29:35,852 [INFO] 127.0.0.1 - - [26/Apr/2026 11:29:35] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:32:36,030 [INFO] Received GitHub event: issues
+2026-04-26 11:32:36,032 [INFO] Received GitHub event: issues
+2026-04-26 11:32:36,032 [INFO] Issue event: action=opened issue=#12 repo=SeanDreifuss/superset labels=['security finding']
+2026-04-26 11:32:36,032 [INFO] Issue event: action=labeled issue=#12 repo=SeanDreifuss/superset labels=['security finding']
+2026-04-26 11:32:36,033 [INFO] Skipping issue #12 — no 'security-finding' label
+2026-04-26 11:32:36,033 [INFO] Skipping issue #12 — no 'security-finding' label
+2026-04-26 11:32:36,034 [INFO] 127.0.0.1 - - [26/Apr/2026 11:32:36] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:32:36,034 [INFO] 127.0.0.1 - - [26/Apr/2026 11:32:36] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:35:37,340 [INFO] Starting webhook server on port 5000
+2026-04-26 11:35:37,341 [INFO] Listening for GitHub events on POST /webhook
+2026-04-26 11:35:37,341 [INFO] Health check available at GET /health
+2026-04-26 11:35:37,379 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.31:5000
+2026-04-26 11:35:37,379 [INFO] [33mPress CTRL+C to quit[0m
+2026-04-26 11:36:16,221 [INFO] Received GitHub event: issues
+2026-04-26 11:36:16,222 [INFO] Issue event: action=unlabeled issue=#12 repo=SeanDreifuss/superset labels=[]
+2026-04-26 11:36:16,223 [INFO] 127.0.0.1 - - [26/Apr/2026 11:36:16] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:36:29,124 [INFO] Received GitHub event: issues
+2026-04-26 11:36:29,125 [INFO] Issue event: action=labeled issue=#12 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:36:29,125 [INFO] Skipping issue #12 — no 'security finding' label
+2026-04-26 11:36:29,126 [INFO] 127.0.0.1 - - [26/Apr/2026 11:36:29] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:37:31,553 [INFO] Received GitHub event: issues
+2026-04-26 11:37:31,554 [INFO] Issue event: action=closed issue=#12 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:37:31,557 [INFO] 127.0.0.1 - - [26/Apr/2026 11:37:31] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:38:38,366 [INFO] Received GitHub event: issues
+2026-04-26 11:38:38,367 [INFO] Issue event: action=opened issue=#13 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:38:38,367 [INFO] Skipping issue #13 — no 'security finding' label
+2026-04-26 11:38:38,367 [INFO] 127.0.0.1 - - [26/Apr/2026 11:38:38] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:38:38,463 [INFO] Received GitHub event: issues
+2026-04-26 11:38:38,463 [INFO] Issue event: action=labeled issue=#13 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:38:38,463 [INFO] Skipping issue #13 — no 'security finding' label
+2026-04-26 11:38:38,463 [INFO] 127.0.0.1 - - [26/Apr/2026 11:38:38] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:39:45,759 [INFO] Starting webhook server on port 5000
+2026-04-26 11:39:45,759 [INFO] Listening for GitHub events on POST /webhook
+2026-04-26 11:39:45,759 [INFO] Health check available at GET /health
+2026-04-26 11:39:45,801 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.31:5000
+2026-04-26 11:39:45,801 [INFO] [33mPress CTRL+C to quit[0m
+2026-04-26 11:39:55,792 [INFO] Received GitHub event: issues
+2026-04-26 11:39:55,793 [INFO] Issue event: action=closed issue=#13 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:39:55,794 [INFO] 127.0.0.1 - - [26/Apr/2026 11:39:55] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:40:29,890 [INFO] Received GitHub event: issues
+2026-04-26 11:40:29,890 [INFO] Issue event: action=opened issue=#14 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:40:29,891 [INFO] [issue-14] Spawning remediation thread for: [TEST] Webhook connectivity test - ignore
+2026-04-26 11:40:29,891 [INFO] [issue-14] Starting remediation pipeline
+2026-04-26 11:40:29,896 [INFO] 127.0.0.1 - - [26/Apr/2026 11:40:29] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:40:30,080 [INFO] Received GitHub event: issues
+2026-04-26 11:40:30,081 [INFO] Issue event: action=labeled issue=#14 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:40:30,081 [INFO] Issue #14 already being processed — skipping duplicate
+2026-04-26 11:40:30,081 [INFO] 127.0.0.1 - - [26/Apr/2026 11:40:30] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 11:41:54,159 [INFO] [issue-14] ⬆️  Escalated: GitHub issue #14 on SeanDreifuss/superset is titled '[TEST] Webhook connectivity test - ignore' with body 'Testing webho
+2026-04-26 11:41:54,161 [INFO] [issue-14] Full result: {
+  "issue_number": 14,
+  "triage_session_id": "3881ca76bd9849faa082f833efaaeae4",
+  "triage_outcome": "escalated",
+  "triage_reasoning": "GitHub issue #14 on SeanDreifuss/superset is titled '[TEST] Webhook connectivity test - ignore' with body 'Testing webhook connection. Close issue after connection is successful.' Despite carrying the 'security-finding' label, the issue contains no actual security finding: no CVE reference, no severity rating, no affected file, no vulnerability category, and no suggested remediation. This is a webhook connectivity test, not a security vulnerability report. Auto-remediation is impossible because there is no vulnerability to fix and no code changes to make. Escalating so a human can close the test issue.",
+  "fix_session_id": null,
+  "pr_url": null,
+  "status": "escalated"
+}
+2026-04-26 11:41:54,161 [INFO] [issue-14] Pipeline complete. Slot released.
+2026-04-26 11:44:29,183 [INFO] Received GitHub event: issues
+2026-04-26 11:44:29,183 [INFO] Issue event: action=closed issue=#14 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 11:44:29,185 [INFO] 127.0.0.1 - - [26/Apr/2026 11:44:29] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 17:59:27,615 [INFO] Received GitHub event: issues
+2026-04-26 17:59:27,621 [INFO] Issue event: action=opened issue=#15 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 17:59:27,622 [INFO] [issue-15] Spawning remediation thread for: [SECURITY] Open redirect vulnerability in authentication flow (CVE-2023-42502)
+2026-04-26 17:59:27,623 [INFO] Received GitHub event: issues
+2026-04-26 17:59:27,629 [INFO] Issue event: action=labeled issue=#15 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 17:59:27,629 [INFO] 127.0.0.1 - - [26/Apr/2026 17:59:27] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 17:59:27,623 [INFO] [issue-15] Starting remediation pipeline
+2026-04-26 17:59:27,631 [INFO] Issue #15 already being processed — skipping duplicate
+2026-04-26 17:59:27,657 [INFO] 127.0.0.1 - - [26/Apr/2026 17:59:27] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 18:03:59,678 [INFO] [issue-15] ⬆️  Escalated: The finding appears to be a false positive / already mitigated, requiring human security engineer verification. Two key 
+2026-04-26 18:03:59,807 [INFO] [issue-15] Full result: {
+  "issue_number": 15,
+  "triage_session_id": "fef5684188d34f769448c3c80453b217",
+  "triage_outcome": "escalated",
+  "triage_reasoning": "The finding appears to be a false positive / already mitigated, requiring human security engineer verification. Two key issues: (1) DISCREPANCY: The actual CVE-2023-42502 describes HTTP Host header spoofing for dataset links (fixed in Superset 3.0.0), but the scanner describes an open redirect via the post-login 'next' parameter \u2014 these are different vulnerabilities. (2) ALREADY MITIGATED: Flask-AppBuilder 5.2.1 (pinned in this fork's requirements/base.txt) already calls get_safe_redirect() in all auth view login handlers (AuthDBView, AuthLDAPView, AuthOAuthView, AuthSAMLView). This function validates the 'next' parameter by checking the URL host against the request host or the configurable FAB_SAFE_REDIRECT_HOSTS list, blocking external redirects. Additionally, Superset's own redirect_to_login() in superset/views/utils.py only constructs the 'next' value from server-side request.path/request.full_path (relative paths, not user-supplied URLs). The initialization/__init__.py locale redirect also uses get_safe_redirect(). Since no unprotected redirect path exists in the current codebase, auto-remediation would mean applying redundant protections. A security engineer should verify this assessment and confirm closure.",
+  "fix_session_id": null,
+  "pr_url": null,
+  "status": "escalated"
+}
+2026-04-26 18:03:59,808 [INFO] [issue-15] Pipeline complete. Slot released.
+2026-04-26 18:17:51,588 [INFO] Received GitHub event: issues
+2026-04-26 18:17:51,591 [INFO] Issue event: action=closed issue=#15 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 18:17:51,594 [INFO] 127.0.0.1 - - [26/Apr/2026 18:17:51] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 18:21:47,857 [INFO] Received GitHub event: issues
+2026-04-26 18:21:47,862 [INFO] Issue event: action=opened issue=#16 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 18:21:47,861 [INFO] Received GitHub event: issues
+2026-04-26 18:21:47,862 [INFO] Issue event: action=labeled issue=#16 repo=SeanDreifuss/superset labels=['security-finding']
+2026-04-26 18:21:47,862 [INFO] [issue-16] Spawning remediation thread for: [SECURITY] Open redirect vulnerability in authentication flow (CVE-2023-42502)
+2026-04-26 18:21:47,863 [INFO] Issue #16 already being processed — skipping duplicate
+2026-04-26 18:21:47,864 [INFO] [issue-16] Starting remediation pipeline
+2026-04-26 18:21:47,900 [INFO] 127.0.0.1 - - [26/Apr/2026 18:21:47] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 18:21:47,901 [INFO] 127.0.0.1 - - [26/Apr/2026 18:21:47] "POST /webhook HTTP/1.1" 200 -
+2026-04-26 18:32:00,989 [INFO] Received GitHub event: push
+2026-04-26 18:32:00,993 [INFO] 127.0.0.1 - - [26/Apr/2026 18:32:00] "POST /webhook HTTP/1.1" 200 -
