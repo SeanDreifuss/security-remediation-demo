@@ -1,7 +1,39 @@
 # Devin Vulnerability Remediation
 
+**Demo:** [Watch the Loom walkthrough](https://www.loom.com/share/27228dde25e64c858d4fafd70680a3e3) | **Superset Fork:** [SeanDreifuss/superset](https://github.com/SeanDreifuss/superset)
+
+
 An automated vulnerability remediation system that uses Devin AI to triage and fix security findings in GitHub repositories. When a security finding is reported via a GitHub issue with the `security-finding` label, the system automatically analyzes the issue and either applies a fix with a pull request or escalates it to human engineers for complex cases.
 
+## Quickstart
+
+The fastest way to see this system in action:
+
+**Watch the demo:** [Loom walkthrough](YOUR_LOOM_URL) shows the full pipeline — webhook trigger, triage session, auto-remediation, and escalation.
+
+**Run a single remediation via CLI** (requires Devin API credentials):
+
+```bash
+git clone https://github.com/SeanDreifuss/security-remediation-demo.git
+cd security-remediation-demo
+pip install -r requirements.txt
+cp .env.example .env
+# Fill in DEVIN_API_KEY, DEVIN_ORG_ID, TRIAGE_PLAYBOOK_ID, FIX_PLAYBOOK_ID
+python3 scripts/run_remediation.py 2
+```
+
+This processes issue #2 from [SeanDreifuss/superset](https://github.com/SeanDreifuss/superset) — a real CVE-2023-27524 finding — through the full triage and fix pipeline. Devin will open a pull request on the fork automatically.
+
+**Run with Docker:**
+
+```bash
+cp .env.example .env  # fill in credentials
+docker-compose up
+```
+
+Then create an issue on [SeanDreifuss/superset](https://github.com/SeanDreifuss/superset) with the `security-finding` label to trigger the webhook pipeline.
+
+> **Note:** Requires a Devin API key. The Playbook IDs (`TRIAGE_PLAYBOOK_ID`, `FIX_PLAYBOOK_ID`) are created by running `python3 scripts/setup_playbooks.py` once against your own Devin org. The seeded issues and demo PRs are pre-configured on the `SeanDreifuss/superset` fork.
 ## Overview
 
 This system orchestrates a two-phase remediation pipeline:
@@ -49,14 +81,13 @@ See [playbooks.md](playbooks.md) for detailed playbook specifications.
 
 - Python 3.9+
 - Devin API credentials
-- GitHub account with a personal access token
 - Target GitHub repository
 
 ### 1. Clone the Repository
 
 ```bash
 git clone <repository-url>
-cd devin-vuln-remediation
+cd security-remediation-demo
 ```
 
 ### 2. Install Dependencies
@@ -87,7 +118,6 @@ Edit `.env` with the following variables:
 |----------|-------------|---------|
 | `DEVIN_API_KEY` | Your Devin API key | `cog_your_key_here` |
 | `DEVIN_ORG_ID` | Your Devin organization ID | `org_your_org_id_here` |
-| `GITHUB_TOKEN` | GitHub personal access token | `ghp_your_github_token_here` |
 | `GITHUB_TARGET_REPO` | Target repository for remediation | `SeanDreifuss/superset` |
 | `GITHUB_WEBHOOK_SECRET` | HMAC secret for webhook verification | Generate with: `python3 -c "import secrets; print(secrets.token_hex(32))"` |
 | `WEBHOOK_PORT` | Port for webhook server | `5000` |
@@ -111,16 +141,27 @@ FIX_PLAYBOOK_ID=pb_def456
 
 ### 5. Configure GitHub Webhook
 
-To enable automatic remediation via GitHub webhooks:
+The demo is pre-configured to work with [`SeanDreifuss/superset`](https://github.com/SeanDreifuss/superset), which contains 8 seeded security findings.
 
-1. Go to your GitHub repository settings → Webhooks → Add webhook
-2. Set the payload URL to your server's public endpoint: `http://your-server:5000/webhook`
-3. Set the content type to `application/json`
-4. Add the `GITHUB_WEBHOOK_SECRET` value as the webhook secret
-5. Select "Issues" as the trigger events
-6. Click "Add webhook"
+**To simulate the workflow locally**, you can trigger remediation directly via CLI without a webhook:
 
-The webhook will trigger when an issue is opened or labeled with `security-finding`.
+```bash
+python3 scripts/run_remediation.py <issue_number>
+```
+
+For example:
+```bash
+python3 scripts/run_remediation.py 2
+```
+
+**To run with webhook automation** (requires your own fork):
+1. Fork the target repository to your own GitHub account
+2. Go to your fork's Settings → Webhooks → Add webhook
+3. Set payload URL to `https://your-ngrok-url/webhook`
+4. Set content type to `application/json`
+5. Add your `GITHUB_WEBHOOK_SECRET` as the webhook secret
+6. Select **Issues** as the trigger event
+7. Update `TARGET_REPO` in `scripts/run_remediation.py` to point to your fork
 
 ## Usage
 
@@ -281,7 +322,6 @@ Ensure:
 │   ├── setup_playbooks.py     # Playbook creation script
 │   └── analytics.py           # Analytics reporter
 ├── playbooks.md               # Detailed playbook specifications
-├── NOTES.md                   # Development notes and learnings
 ├── .env.example               # Environment variable template
 ├── Dockerfile                 # Container definition
 ├── docker-compose.yml         # Container orchestration
